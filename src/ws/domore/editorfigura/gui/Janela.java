@@ -13,6 +13,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
+import factorys.FabricaImpressao;
 import ws.domore.editorfigura.negocio.Figura;
 
 /**
@@ -21,69 +22,68 @@ import ws.domore.editorfigura.negocio.Figura;
  */
 public class Janela extends JFrame implements ActionListener {
 
-    
-    /**
+	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private Set<JToggleButton> botoes = new HashSet<JToggleButton>();
-    private AreaDesenho painel = new AreaDesenho(null);
+	private AreaDesenho painel = new AreaDesenho(null);
 
-    public Janela(String nome) {
-        super(nome);
-        this.setLayout(new BorderLayout());
-        JPanel grid = new JPanel();
-        grid.setLayout(new GridLayout(Figura.BOTOES.length, 1));
-        for (String s : Figura.BOTOES) {
-            JToggleButton tb = new JToggleButton(s);
-            tb.addActionListener(this);
-            botoes.add(tb);
-            grid.add(tb);
-        }
-        JPanel lateral = new JPanel();
-        lateral.setBackground(Color.GREEN);
-        lateral.add(grid);
+	public Janela(String nome) {
+		super(nome);
+		this.setLayout(new BorderLayout());
+		JPanel grid = new JPanel();
+		grid.setLayout(new GridLayout(Figura.BOTOES.length, 1));
+		for (String s : Figura.BOTOES) {
+			JToggleButton tb = new JToggleButton(s);
+			tb.addActionListener(this);
+			botoes.add(tb);
+			grid.add(tb);
+		}
+		JPanel lateral = new JPanel();
+		lateral.setBackground(Color.GREEN);
+		lateral.add(grid);
 
-        painel.addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                painelMouseClicked(evt);
-            }
-        });
+		painel.addMouseListener(new java.awt.event.MouseAdapter() {
+			@Override
+			public void mouseClicked(java.awt.event.MouseEvent evt) {
+				painelMouseClicked(evt);
+			}
+		});
 
+		this.add(BorderLayout.CENTER, painel);
+		this.add(BorderLayout.WEST, lateral);
 
-        this.add(BorderLayout.CENTER, painel);
-        this.add(BorderLayout.WEST, lateral);
+		this.setSize(400, 350);
 
-        this.setSize(400, 350);
+		this.setVisible(true);
 
-        this.setVisible(true);
+		this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+	}
 
-        this.setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-    }
+	public void actionPerformed(ActionEvent e) {
+		JToggleButton botao = (JToggleButton) e.getSource();
+		for (JToggleButton tb : botoes) {
+			tb.setSelected(false);
+		}
+		botao.setSelected(true);
+	}
 
-    public void actionPerformed(ActionEvent e) {
-        JToggleButton botao = (JToggleButton) e.getSource();
-        for (JToggleButton tb : botoes) {
-            tb.setSelected(false);
-        }
-        botao.setSelected(true);
-    }
+	public void painelMouseClicked(MouseEvent evt) {
 
-    public void painelMouseClicked(MouseEvent evt) {
-        int x = evt.getX();
-        int y = evt.getY();
-         for (JToggleButton tb : botoes) {
-            if(tb.isSelected()){
-                this.painel.adicionarFigura(Figura.criar(x, y, tb.getText()));
-            }
-        }
-        this.painel.updateUI();
-    }
+		int x = evt.getX();
+		int y = evt.getY();
+		for (JToggleButton tb : botoes) {
+			if (tb.isSelected()) {
+				this.painel.adicionarFigura(FabricaImpressao.montarFigura(x, y, tb.getText()));
+			}
+		}
+		this.painel.updateUI();
+	}
 
-    public static void main(String[] args) {
-        Janela j = new Janela("Janela Editor");
-        j.setVisible(true);
+	public static void main(String[] args) {
+		Janela j = new Janela("Janela Editor");
+		j.setVisible(true);
 
-    }
+	}
 }

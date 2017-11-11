@@ -13,16 +13,15 @@ import java.awt.geom.Ellipse2D;
  *
  * @author mariojp
  */
-public class Circulo extends Figura{
+public class Circulo extends Figura {
 
-    
-    public Circulo(){
-        cor = Color.GREEN;
-    }
-    @Override
-    public Shape desenhar() {
-       return  (Shape) new Ellipse2D.Double(x, y, 10, 10);
-    }
+	public Circulo() {
+		cor = Color.BLUE;
+	}
 
+	@Override
+	public Shape desenhar() {
+		return (Shape) new Ellipse2D.Double(x, y, 10, 10);
+	}
 
 }

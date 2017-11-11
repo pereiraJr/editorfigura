@@ -14,15 +14,14 @@ import java.awt.geom.Rectangle2D;
  */
 public class Quadrado extends Figura {
 
-    public Quadrado() {
-        cor = Color.BLUE;
-    }
+	public Quadrado() {
+		cor = Color.BLUE;
+	}
 
-    @Override
-    public Shape desenhar() {
-        return new Rectangle2D.Double(x, y, 10, 10);
+	@Override
+	public Shape desenhar() {
+		return new Rectangle2D.Double(x, y, 10, 10);
 
-    }
-
+	}
 
 }

@@ -14,12 +14,12 @@ import java.awt.geom.Rectangle2D;
  * @author mariojp
  */
 public class Retangulo extends Figura {
-     public Retangulo(){
-        cor = Color.RED;
-    }
-     
-    @Override
-    public Shape desenhar() {
-       return  new Rectangle2D.Double(x, y, 30, 10);
-    }
+	public Retangulo() {
+		cor = Color.RED;
+	}
+
+	@Override
+	public Shape desenhar() {
+		return new Rectangle2D.Double(x, y, 30, 10);
+	}
 }
